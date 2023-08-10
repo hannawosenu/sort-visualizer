@@ -7,9 +7,15 @@ public class BubbleSort {
                     int temp = arr[j];
                     arr[j] = arr[j + 1];
                     arr[j + 1] = temp;
+
                     panel.updateArray(arr);
-                    System.out.println(i);
-                    System.out.println(j);
+                    panel.repaint();
+                    try {
+                        Thread.sleep(100);
+
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }

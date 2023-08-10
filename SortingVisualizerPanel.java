@@ -5,8 +5,6 @@ import java.util.Random;
 public class SortingVisualizerPanel extends JPanel {
     private int[] array;
     private static final int ARRAY_SIZE = 10;
-    private static final int BAR_WIDTH = 4;
-    private static final int BAR_HEIGHT_SCALE = 3;
 
     public SortingVisualizerPanel() {
         generateRandomArray();
@@ -18,27 +16,52 @@ public class SortingVisualizerPanel extends JPanel {
         Random random = new Random();
 
         // Calculate maxHeight based on ARRAY_SIZE
-        int maxHeight = Math.max(1, (getHeight() - 20) / BAR_HEIGHT_SCALE);
+        int maxValue = 100;
 
         for (int i = 0; i < ARRAY_SIZE; i++) {
-            array[i] = random.nextInt(maxHeight + 1);
+            array[i] = random.nextInt(maxValue) + 1;
             System.out.println(array[i]);
         }
     }
 
-    public void startSorting() {
-        // Call the sorting algorithm of your choice
-        BubbleSort.sort(array, this); // Pass the panel instance to the sorting algorithm
+    public void startBubble() {
+        Thread sortingThread = new Thread(() -> {
+            BubbleSort.sort(array, this);
+        });
+
+        sortingThread.start();
     }
+
+    public void startInsertion() {
+        Thread sortingThread = new Thread(() -> {
+            InsertionSort.sort(array, this);
+        });
+
+        sortingThread.start();
+    }
+
+    public void startSelection() {
+        Thread sortingThread = new Thread(() -> {
+            SelectionSort.sort(array, this);
+        });
+
+        sortingThread.start();
+    }
+
 
     public void updateArray(int[] newArray) {
         array = newArray;
-        repaint(); // Trigger the panel to repaint
-        try {
-            Thread.sleep(10); // Add a small delay to see the animation
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+    }
+
+    private int getMaxValue(int[] array) {
+        int max = array[0];
+        for (int i = 1; i < ARRAY_SIZE; i++) {
+            if (array[i] > max) {
+                System.out.println("Current max: " + max);
+                max = array[i];
+            }
         }
+        return max;
     }
 
     @Override
@@ -51,14 +74,14 @@ public class SortingVisualizerPanel extends JPanel {
         int barWidth = panelWidth / ARRAY_SIZE; // Calculate the width of each bar
         int maxHeight = panelHeight - 20; // Max height of bars (leave some space at the top)
 
+        int maxValue = getMaxValue(array);
+
         for (int i = 0; i < ARRAY_SIZE; i++) {
-            int barHeight = array[i] * (maxHeight / ARRAY_SIZE);
+            int barHeight = maxHeight * array[i] / maxValue;
             int x = i * barWidth;
             int y = panelHeight - barHeight;
 
-            // Set the color for the bar
             g.setColor(Color.BLUE);
-
             g.fillRect(x, y, barWidth, barHeight);
         }
     }

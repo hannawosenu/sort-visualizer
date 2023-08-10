@@ -15,9 +15,16 @@ public class Main {
         JLabel title = new JLabel("Sorting Algorithm Visualizer");
         frame.add(title);
 
-        // Start Sorting Button
-        JButton startButton = new JButton("Start Sorting");
-        frame.add(startButton);
+        // Start Sorting Button for different algorithms
+        JButton bubble = new JButton("Bubble Sort");
+        frame.add(bubble);
+
+        JButton insertion = new JButton("Insertion Sort");
+        frame.add(insertion);
+
+        JButton selection = new JButton("Selection Sort");
+        frame.add(selection);
+
 
         // Creating panel for sorting
         SortingVisualizerPanel panel = new SortingVisualizerPanel();
@@ -25,6 +32,8 @@ public class Main {
         frame.add(panel);
         frame.setVisible(true);
 
-        startButton.addActionListener(e -> panel.startSorting());
+        bubble.addActionListener(e -> panel.startBubble());
+        insertion.addActionListener(e -> panel.startInsertion());
+        selection.addActionListener(e -> panel.startSelection());
     }
 }
