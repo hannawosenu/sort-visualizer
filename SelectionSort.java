@@ -1,5 +1,5 @@
 public class SelectionSort {
-    public static void sort(int[] arr, SortingVisualizerPanel panel) {
+    public static void sort(int[] arr, SortingVisualizerPanel panel, int sleepVal) {
         int n = arr.length;
         for (int i = 0; i < n - 1; i++) {
             int minIndex = i;
@@ -16,7 +16,7 @@ public class SelectionSort {
             panel.updateArray(arr);
             panel.repaint();
             try {
-                Thread.sleep(100);
+                Thread.sleep(sleepVal);
 
             } catch (InterruptedException e) {
                 e.printStackTrace();

@@ -1,19 +1,24 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class SortingVisualizerPanel extends JPanel {
     private int[] array;
     private static final int ARRAY_SIZE = 10;
+    private int sleepInterval = 100;
+    private Map<Integer, Color> initialPositionColors = new HashMap<>();
+    Random random = new Random();
+
 
     public SortingVisualizerPanel() {
         generateRandomArray();
-
+        generateInitialPositionColors();
     }
 
     private void generateRandomArray() {
         array = new int[ARRAY_SIZE];
-        Random random = new Random();
 
         // Calculate maxHeight based on ARRAY_SIZE
         int maxValue = 100;
@@ -24,9 +29,20 @@ public class SortingVisualizerPanel extends JPanel {
         }
     }
 
+    private void generateInitialPositionColors() {
+        for (int i = 0; i < ARRAY_SIZE; i++) {
+            int red = random.nextInt(256);
+            int green = random.nextInt(256);
+            int blue = random.nextInt(256);
+
+            Color randomColor = new Color(red, green, blue);
+            initialPositionColors.put(array[i], randomColor);
+        }
+    }
+
     public void startBubble() {
         Thread sortingThread = new Thread(() -> {
-            BubbleSort.sort(array, this);
+            BubbleSort.sort(array, this, sleepInterval);
         });
 
         sortingThread.start();
@@ -34,7 +50,7 @@ public class SortingVisualizerPanel extends JPanel {
 
     public void startInsertion() {
         Thread sortingThread = new Thread(() -> {
-            InsertionSort.sort(array, this);
+            InsertionSort.sort(array, this, sleepInterval);
         });
 
         sortingThread.start();
@@ -42,7 +58,7 @@ public class SortingVisualizerPanel extends JPanel {
 
     public void startSelection() {
         Thread sortingThread = new Thread(() -> {
-            SelectionSort.sort(array, this);
+            SelectionSort.sort(array, this, sleepInterval);
         });
 
         sortingThread.start();
@@ -64,6 +80,10 @@ public class SortingVisualizerPanel extends JPanel {
         return max;
     }
 
+    public void setSleepInterval(int interval) {
+        this.sleepInterval = interval;
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -81,7 +101,7 @@ public class SortingVisualizerPanel extends JPanel {
             int x = i * barWidth;
             int y = panelHeight - barHeight;
 
-            g.setColor(Color.BLUE);
+            g.setColor(initialPositionColors.get(array[i]));
             g.fillRect(x, y, barWidth, barHeight);
         }
     }
