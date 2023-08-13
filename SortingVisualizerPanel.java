@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class SortingVisualizerPanel extends JPanel {
     private int[] array;
-    private static final int ARRAY_SIZE = 10;
+    private int ARRAY_SIZE = 10;
     private int sleepInterval = 100;
     private Map<Integer, Color> initialPositionColors = new HashMap<>();
     Random random = new Random();
@@ -82,6 +82,10 @@ public class SortingVisualizerPanel extends JPanel {
 
     public void setSleepInterval(int interval) {
         this.sleepInterval = interval;
+    }
+
+    public void setDataSize(int data) {
+        this.ARRAY_SIZE = data;
     }
 
     @Override

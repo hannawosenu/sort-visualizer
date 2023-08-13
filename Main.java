@@ -21,6 +21,21 @@ public class Main {
         titlePanel.setAlignmentX(Component.CENTER_ALIGNMENT); // Center align the title
         frame.add(titlePanel);
 
+        // Settings Button
+//        JPanel settings = new JPanel();
+//        JButton openSettings = new JButton("Settings");
+//        settings.add(openSettings);
+//        openSettings.setAlignmentX(Component.CENTER_ALIGNMENT);
+//        frame.add(settings);
+//
+//        SettingsWindow settingsWindow = new SettingsWindow();
+//        openSettings.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                settingsWindow.setVisible(true);
+//            }
+//        });
+
         // Start Sorting Button for different algorithms
         JPanel buttons = new JPanel();
         buttons.setLayout(new FlowLayout());
@@ -36,12 +51,24 @@ public class Main {
         frame.add(buttons);
 
         // Slider for animation speed
-        JPanel slider = new JPanel();
-        slider.setLayout(new FlowLayout());
+        JPanel sliders = new JPanel();
+        sliders.setLayout(new FlowLayout());
+
+        JLabel sliderOne = new JLabel("Speed");
+        JLabel sliderTwo = new JLabel("Size");
+
         JSlider speed = new JSlider(JSlider.HORIZONTAL,
-                1, 10, 5);
-        slider.add(speed);
-        frame.add(slider);
+                1, 20, 10);
+//        JSlider size = new JSlider(JSlider.HORIZONTAL,
+//                1, 10, 5);
+
+        sliders.add(speed);
+        sliders.add(sliderOne);
+
+//        sliders.add(size);
+//        sliders.add(sliderTwo);
+
+        frame.add(sliders);
 
         // Creating panel for sorting
         SortingVisualizerPanel panel = new SortingVisualizerPanel();
@@ -60,5 +87,6 @@ public class Main {
                 panel.setSleepInterval(newSleepInterval);
             }
         });
+
     }
 }
