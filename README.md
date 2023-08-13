@@ -1,4 +1,4 @@
-**Sorting Algorithm Visualizer**
+#Sorting Algorithm Visualizer
 
 The Sorting Algorithm Visualizer is a Java application that demonstrates various sorting algorithms through visual animations. Users can interact with the application to observe how different sorting algorithms rearrange elements within an array to achieve ordered sequences.
 
